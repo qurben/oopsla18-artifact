@@ -6,6 +6,7 @@
 >
   <modelVersion>4.0.0</modelVersion>
   <artifactId>statix.tests</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
   <packaging>spoofax-test</packaging>
 
   <parent>
@@ -19,7 +20,7 @@
     <!-- compile -->
     <dependency>
       <groupId>org.metaborg</groupId>
-      <artifactId>statix.test</artifactId>
+      <artifactId>statix.lang</artifactId>
       <version>${metaborg-version}</version>
       <type>spoofax-language</type>
       <scope>provided</scope>
@@ -48,7 +49,7 @@
           </execution>
         </executions>
         <configuration>
-          <languageUnderTest>org.metaborg:statix.test:${metaborg-version}</languageUnderTest>
+          <languageUnderTest>org.metaborg:statix.lang:${metaborg-version}</languageUnderTest>
         </configuration>
       </plugin>
     </plugins>

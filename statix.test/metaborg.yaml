@@ -4,7 +4,7 @@ name: StatixTests
 dependencies:
   compile:
   - org.metaborg:org.metaborg.meta.lang.spt:${metaborgVersion}
-  - org.metaborg:statix.test:${metaborgVersion}
+  - "org.metaborg:statix.lang:${metaborgVersion}"
 runtime:
   nabl2:
     debug:
