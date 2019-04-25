@@ -1,5 +1,5 @@
 class A<> extends Object<> {
-  B<> b
+  B<> b;
   A(B<> b) {
     super();
     this.b = b;

@@ -138,9 +138,9 @@ rules
 
   typeEq(T@PROJB(_), U) :- typeEq(strict(T), U).
 
-  typeEq(U, T@PROJB(_)) | U != PROJB(_) :- typeEq(U, strict(T)).
+  typeEq(U, T@PROJB(_)).
 
-  typeEq(PL(X), PL(Y)) | X == Y.
+  typeEq(PL(X), PL(X)).
 
   typeEq(ALL(X, s_all1), ALL(Y, s_all2)) :- {Z s_inst1 s_inst2}
     new Z,
@@ -148,7 +148,7 @@ rules
     new s_inst2, s_inst2 -I-> s_all2, s_inst2 -> Y with subst PL(Z),
     typeEq(PROJB(s_inst1), PROJB(s_inst2)).
 
-  typeEq(TVAR(X), TVAR(Y)) | X == Y. // Should not occur in programs with no free type variables
+  typeEq(TVAR(X), TVAR(X)). // Should not occur in programs with no free type variables
 
 rules
 
@@ -159,7 +159,7 @@ rules
     [_|ss] == reverseOfScopes(scopes(p)),
     strictp(ss, U) == T.
   
-  strict(T) = T | T != PROJB(_).
+  strict(T) = T.
 
 rules
 
@@ -167,13 +167,13 @@ rules
   
   strictp([], T) = T.
   
-  strictp(p, T@PROJB(s)) = strictp(p, strict(T)) | p != [].
+  strictp(p, T@PROJB(s)) = strictp(p, strict(T)).
   
-  strictp(p, NUM()) = NUM() | p != [].
+  strictp(p, NUM()) = NUM().
 
-  strictp(p, PL(X)) = PL(X) | p != [].
+  strictp(p, PL(X)) = PL(X).
   
-  strictp(p, FUN(T1, T2)) = FUN(strictp(p, T1), strictp(p, T2)) | p != [].
+  strictp(p, FUN(T1, T2)) = FUN(strictp(p, T1), strictp(p, T2)).
   
   strictp([s|p], ALL(X, s_all)) = strictp(p, ALL(X, s_inst)) :- {Y T}
     query subst filter pathMatch[e] in s |-> [(_, (Y, T))],
@@ -187,7 +187,7 @@ rules
      
      strictpVarR(p, X, Yes(X, T)) = strictp(p, T).
      
-     strictpVarR(p, X, Yes(Y, T)) = strictp(p, TVAR(X)) | X != Y.
+     strictpVarR(p, X, Yes(Y, T)) = strictp(p, TVAR(X)).
   
      strictpVarR(p, X, No())      = strictp(p, TVAR(X)). // Should not occur
   

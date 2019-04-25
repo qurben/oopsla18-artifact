@@ -262,7 +262,7 @@ rules
   promoteTypes maps promoteType(*, list(*)) = list(*)
 
   promoteType(s, TVAR(d)) = strict(PROJ(s, d)).    // bound projection
-  promoteType(s, T)       = T | T != TVAR(_).
+  promoteType(s, T)       = T.
 
 rules
 
@@ -348,7 +348,7 @@ rules
     classInstEq(p1, p2).
 
   typeEq(T@PROJ(_, _), S) :- typeEq(strict(T), S).
-  typeEq(T, S@PROJ(_, _)) | T != PROJ(_, _) :- typeEq(T, strict(S)).
+  typeEq(T, S@PROJ(_, _)) :- typeEq(T, strict(S)).
 
 rules
 
@@ -362,9 +362,9 @@ rules
     strict(S, S'), strict(T, T'),
     subTypeA(s, S', T').
 
-  subTypeA(s, T@TVAR(_), U) | U == T.
+  subTypeA(s, T@TVAR(_), T).
 
-  subTypeA(s, T@TVAR(d), U) | U != T :-
+  subTypeA(s, T@TVAR(d), U) :-
     subType(s, PROJ(s, d), U).
 
   subTypeA(s, CLASS(s1), CLASS(s2)) :- {p1 p2 Xs Ts Us}
@@ -432,7 +432,7 @@ rules // forces normalization of a postponed projection
     typeOfDecl of r in s |-> [(p, (d, S))],
     norm(scopes(p), S) == T.
 
-  strict(T) = T | T != PROJ(_, _).
+  strict(T) = T.
 
 rules // normalize types
 
